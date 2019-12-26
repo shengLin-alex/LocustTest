@@ -1,4 +1,5 @@
 from locust import HttpLocust, TaskSet, task, between
+from urllib.parse import unquote
 
 
 class WebsiteTasks(TaskSet):
@@ -9,7 +10,7 @@ class WebsiteTasks(TaskSet):
         with self.client.get("/moe/public/login/",
                              catch_response=True) as response:
             self.cookieJar = response.cookies
-            self.xsrf_token = response.cookies["XSRF-TOKEN"]
+            self.xsrf_token = unquote(response.cookies["XSRF-TOKEN"])
 
     @task(1)
     def login(self):
