@@ -35,6 +35,7 @@ class WebsiteTasks(TaskSet):
                 response.success()
 
         # add new external announce
+        # 用 MultipartEncoder 方便發送具有 webkit boundary 的 multipart/form-data
         encoder = MultipartEncoder(fields={'_token': self.csrf_token,
                                            'FrontAnnouncement_Input_Title': 'Request From Locust',
                                            'FrontAnnouncement_Input_KindObject': '0',
