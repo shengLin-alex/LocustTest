@@ -28,6 +28,12 @@ class WebsiteTasks(TaskSet):
             if response.status_code == 200:
                 response.success()
 
+        # go to external announce page
+        with self.client.get('/moe/public/eFound/managMoe/externalAnnounce',
+                             catch_response=True) as response:
+            if response.status_code == 200:
+                response.success()
+
         # add new external announce
         encoder = MultipartEncoder(fields={'_token': self.csrf_token,
                                            'FrontAnnouncement_Input_Title': 'Request From Locust',
@@ -59,7 +65,6 @@ class WebsiteTasks(TaskSet):
                 response.success()
 
 
-# locust --clients=20 --hatch-rate=2 --num-request=1000
 class WebsiteUser(HttpLocust):
     task_set = WebsiteTasks
     host = 'http://140.124.39.132'
